@@ -15,7 +15,8 @@
     "discord.js": "github:discordjs/discord.js#master",
     "enmap": "^4.4.1",
     "better-sqlite-pool": "^0.1.2",
-    "dotenv": "^6.1.0"
+    "dotenv": "^6.1.0",
+    "lastfm-api-fixed": "1.1.11"
   },
   "engines": {
     "node": "8.x"
