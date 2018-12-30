@@ -1,0 +1,5 @@
+const func = () => {
+  
+}
+
+module.exports = 
