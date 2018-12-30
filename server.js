@@ -1,3 +1,4 @@
+require("dotenv")
 const moment = require('moment')
 const log = message => {
   console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
@@ -59,4 +60,4 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.login(process.env.TOKEN)
+client.login("NTIwNjEwODE0NjM4Njg2MjA4.Dwro5Q.sZPpW0_HVg3AmC2WnWQFmoB0pfk")
