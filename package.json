@@ -2,27 +2,27 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
+  "name": "my-glitch-app",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
-  "main": "server.js",
+  "description": "What am I about?",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "express": "^4.16.4",
+    "discord.js": "^11.4.2",
+    "enmap": "^4.5.0",
+    "better-sqlite-pool": "^0.1.2",
+    "express-glitch-keepalive": "^0.2.0",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
-    "discord.js": "github:discordjs/discord.js#master",
-    "enmap": "^4.4.1",
-    "better-sqlite-pool": "^0.1.2",
-    "dotenv": "^6.1.0",
-    "lastfm-api-fixed": "1.1.11"
+    "validator": "github:BeMacized/PokemonShowdownValidator"
   },
   "engines": {
-    "node": "8.x"
+    "node": "9.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "url": "https://glitch.com/edit/#!/my-glitch-app"
   },
   "license": "MIT",
   "keywords": [
