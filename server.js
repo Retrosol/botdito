@@ -1,17 +1,3 @@
-const http = require('http');
-const express = require('express');
-const app = express();
-const keepalive = require('express-glitch-keepalive');
-
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
-});
-
-
-var listener = app.listen(process.env.PORT || 3000, function () {
-
-});
-
 const moment = require('moment')
 const log = message => {
   console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
