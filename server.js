@@ -1,4 +1,17 @@
-require("dotenv")
+const http = require('http');
+const express = require('express');
+const app = express();
+const keepalive = require('express-glitch-keepalive');
+
+app.get("/", function (request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+});
+
+
+var listener = app.listen(process.env.PORT || 3000, function () {
+
+});
+
 const moment = require('moment')
 const log = message => {
   console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
@@ -10,10 +23,12 @@ const Discord = require('discord.js'),
       config = require('./config.json'),
      Enmap = require("enmap")
 
+client.fcs = new Enmap({name: "fcs"})
 client.config = config
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-client.queue = new Map()
+client.requests = new Enmap({name : "requests"})
+
 
 fs.readdir("./commands/", (err, files) => {
   if (err) console.error(err);
@@ -60,4 +75,5 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.login("NTIwNjEwODE0NjM4Njg2MjA4.Dwro5Q.sZPpW0_HVg3AmC2WnWQFmoB0pfk")
+client.login(process.env.TOKEN)
+

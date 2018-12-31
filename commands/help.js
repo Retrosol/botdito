@@ -3,7 +3,7 @@
         cmd = params[0]
   
  if (!cmd) {
-   const embed = new Discord.MessageEmbed()
+   const embed = new Discord.RichEmbed()
    .setTitle('Here is a list of commands!')
    .setColor("RANDOM")
    .setTimestamp()
@@ -13,7 +13,7 @@
  } else {
   if (client.commands.has(cmd)) {
     const props = require(`../commands/${cmd}.js`)
-   const embed = new Discord.MessageEmbed()
+   const embed = new Discord.RichEmbed()
    .setTitle(props.help.name)
    .setColor("RANDOM")
    .setTimestamp()
@@ -35,5 +35,5 @@ exports.conf = {
 exports.help = {
   name: "help",
   description: "Shows info about a command",
-  usage: "!help (command name)"
+  usage: "+help (command name)"
 }

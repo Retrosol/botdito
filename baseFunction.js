@@ -1,5 +1,0 @@
-const func = () => {
-  
-}
-
-module.exports = 
