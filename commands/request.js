@@ -37,20 +37,20 @@ poke.on('collect', async m => {
        const possible = client.requests.getProp(message.author.id, "total")
        if (possible === 0) return message.channel.send("You can't request any Pokemon! Come back later!")
         message.author.send("You can currently request " + possible + " Pokemon. Which way would you like to request?\n\nA) pokepast.es\nB) Showdown Import\nC) PK7\n\nJust say A, B, or C").then(r => {
-        const import = r.channel.createMessageCollector(m => m.author.id === message.author.id. {time: 36000})
+        const importa = r.channel.createMessageCollector(m => m.author.id === message.author.id, {time: 36000})
           
-          import.on('collect', async v => {
+          importa.on('collect', async v => {
             const lower = v.toLowerCase()
             if (lower === "A") {
-              import.stop("pokepaste")
+              importa.stop("pokepaste")
               } else if (lower === "B") {
-                import.stop("showdown")
+                importa.stop("showdown")
                 } else {
-                  import.stop("pk7")
+                  importa.stop("pk7")
                   }
             })
           
-          import.on("end", (collect, b) => {
+          importa.on("end", (collect, b) => {
             if (b === "pokepaste") {
               message.author.send("Okay! Send the link!").then(t => (
                 t.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
@@ -65,7 +65,7 @@ poke.on('collect', async m => {
                       })
                     })
                   })
-                })
+                )})
               }
            else if (b === "showdown") {
                 message.author.send('Okay, send your team over so I can validate it!').then(r => {
