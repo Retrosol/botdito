@@ -50,7 +50,41 @@ poke.on('collect', async m => {
                   }
             })
           
-          
+          import.on("end", (collect, b) => {
+            if (b === "pokepaste") {
+              message.author.send("Okay! Send the link!").then(t => (
+                t.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
+                  const link = i.first().content
+                  message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
+                    t.channel.awaitMessages(m => m.author.id, { max : 1}).then(p => {
+                      const ign = p.first().content
+                      client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a Pokepaste!\n${link}`)
+                      })
+                    })
+                  })
+                })
+              }
+           else if (b === "showdown") {
+                message.author.send('Okay, send your team over so I can validate it!').then(r => {
+                  r.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
+                    const team = i.first().content
+                    if (mon_array.some(o => team.includes(o)) return message.author.send("Sorry, this team has some things you can't request. Try again.")
+                      validate(team, "gen7anythinggoes").then(resp => {
+                        if (['Your team was rejected for the following reasons:'].some(as => resp.includes(as))) return message.author.send(resp)
+                        message.author.send("Team is valid! What's your IGN? This is so the genners find you easier in-game.").then(uwu => {
+                          uwu.channel.awaitMessages(m => m.author.id, { max : 1}).then(w => {
+                          const ign = w.first().content
+                          client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``)
+                            })
+                          })
+                        })
+                    })
+                  })
+                }
+              else if (b === "pk7") {
+                
+                }
+                                                               })
           
           })
         })
