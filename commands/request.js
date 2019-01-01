@@ -55,6 +55,9 @@ poke.on('collect', async m => {
               message.author.send("Okay! Send the link!").then(t => (
                 t.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
                   const link = i.first().content
+                  const { get } = require('snekfetch')
+                  const { body: teamstuff } = get(link)
+                  console.log(teamstuff)
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
                     t.channel.awaitMessages(m => m.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
