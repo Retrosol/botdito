@@ -52,7 +52,7 @@ poke.on('collect', async m => {
           
           importa.on("end", (collect, b) => {
             if (b === "pokepaste") {
-              message.author.send("Okay! Send the link!").then(t => (
+              message.author.send("Okay! Send the link!").then(t => {
                 t.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
                   const link = i.first().content
                   const { get } = require('snekfetch')
@@ -65,13 +65,13 @@ poke.on('collect', async m => {
                       })
                     })
                   })
-                )})
+              })
               }
            else if (b === "showdown") {
                 message.author.send('Okay, send your team over so I can validate it!').then(r => {
                   r.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
                     const team = i.first().content
-                    if (mon_array.some(o => team.includes(o)) return message.author.send("Sorry, this team has some things you can't request. Try again.")
+                    if (mon_array.some(o => team.includes(o))) return message.author.send("Sorry, this team has some things you can't request. Try again.")
                       validate(team, "gen7anythinggoes").then(resp => {
                         if (['Your team was rejected for the following reasons:'].some(as => resp.includes(as))) return message.author.send(resp)
                         message.author.send("Team is valid! What's your IGN? This is so the genners find you easier in-game.").then(uwu => {
@@ -87,12 +87,16 @@ poke.on('collect', async m => {
               else if (b === "pk7") {
                 
                 }
-                                                               })
-          
           })
         })
-      }
-    })
+                                                               })
+    }
+  })
+          
+          
+      
+      
+
 }
 
 exports.conf = {
