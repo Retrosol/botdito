@@ -13,7 +13,7 @@
     "discord.js": "^11.4.2",
     "enmap": "^4.5.0",
     "better-sqlite-pool": "^0.1.2",
-    "express-glitch-keepalive": "^0.2.0",
+    "dotenv": "^6.1.0",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "validator": "github:BeMacized/PokemonShowdownValidator"
