@@ -16,8 +16,8 @@
     "express": "^4.16.4",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
-    "snekfetch": "^4.0.4",
-    "validator": "github:BeMacized/PokemonShowdownValidator"
+    "pokemon-showdown-validator": "github:BeMacized/PokemonShowdownValidator",
+    "snekfetch": "^4.0.4"
   },
   "engines": {
     "node": "9.x"
