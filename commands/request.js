@@ -84,7 +84,7 @@ poke.on('collect', async m => {
                 }
               else if (b === "pk7") {
                 message.author.send('Okay, please send the pk7s.').then(r => {
-r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.some(e => e.includes('pk7') > 0 && m.attachments.size > 0 && m.attachments.size < 3, {max:1}).then(p => {
+r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.some(e => e.includes('pk7')) > 0 && m.attachments.size > 0 && m.attachments.size < 3, {max:1}).then(p => {
 message.author.send('Okay! Whats your IGN? This is so genners can find you in-game quicker and easier.').then(o => {
 o.channel.awaitMessages(m => m.author.id === message.author.id, {max:1}).then(t => {
 const ign = t.first().content
