@@ -5,7 +5,7 @@ String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
 exports.run = async (client, message, params) => {
  if (!message.member.roles.has('480397935067004928')) return message.channel.send('Set your FC first!')
   
-  const validate = require('validator').default;
+  const validate = require('pokemon-showdown-validator').default;
   var pokemon1
   var pokemon2
   var pokemon3
@@ -16,9 +16,9 @@ exports.run = async (client, message, params) => {
   var gen2
   var gen3
       let mon_array = ["kyurem-black","kyurem-white","ium z","dusk-wings","ultra-wings","necrozma-dawn-wings", "necrozma-dusk-mane", "shaymin-sky","venusaur-mega", "charizard-mega", "blastoise-mega", "beedrill-mega", "pidgeot-mega", "alakazam-mega", "slowbro-mega", "gengar-mega", "kangaskhan-mega", "pinsir-mega", "gyarados-mega", "aerodactyl-mega", "mewtwo-mega", "ampharos-mega", "steelix-mega", "scizor-mega", "heracross-mega", "houndoom-mega", "tyranitar-mega", "sceptile-mega", "blaziken-mega", "swampert-mega", "gardevoir-mega", "sableye-mega", "mawile-mega", "aggron-mega", "medicham-mega", "manectric-mega", "sharpedo-mega", "camerupt-mega", "altaria-mega", "banette-mega", "absol-mega", "glalie-mega", "salamence-mega", "metagross-mega", "latias-mega", "latios-mega", "rayquaza-mega", "lopunny-mega", "garchomp-mega", "lucario-mega", "abomasnow-mega", "gallade-mega", "audino-mega", "diancie-mega"]
-      message.author.send("Hello! I see you want to request a Pokemon. Is this correct?")
+      message.author.send("Hello! I see you want to request a Pokemon. Is this correct?").then(e =>{
     const validAnswers = ["yes", "y", "no", "n", "cancel"];
-  const poke = message.channel.createMessageCollector(m=>m.author.id === message.author.id, {time:30000});
+  const poke = e.channel.createMessageCollector(m=>m.author.id === message.author.id, {time:30000});
 poke.on('collect', async m => {
   const lower = m.content.toLowerCase()
   if (lower === "yes" || lower === "y") {
@@ -40,10 +40,10 @@ poke.on('collect', async m => {
         const importa = r.channel.createMessageCollector(m => m.author.id === message.author.id, {time: 36000})
           
           importa.on('collect', async v => {
-            const lower = v.toLowerCase()
-            if (lower === "A") {
+            const lower = v.content.toLowerCase()
+            if (lower === "a") {
               importa.stop("pokepaste")
-              } else if (lower === "B") {
+              } else if (lower === "b") {
                 importa.stop("showdown")
                 } else {
                   importa.stop("pk7")
@@ -53,13 +53,11 @@ poke.on('collect', async m => {
           importa.on("end", (collect, b) => {
             if (b === "pokepaste") {
               message.author.send("Okay! Send the link!").then(t => {
-                t.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
+                t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(i => {
                   const link = i.first().content
                   const { get } = require('snekfetch')
-                  const { body: teamstuff } = get(link)
-                  console.log(teamstuff)
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
-                    t.channel.awaitMessages(m => m.author.id, { max : 1}).then(p => {
+                    t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
                       client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a Pokepaste!\n${link}`)
                       })
@@ -69,13 +67,13 @@ poke.on('collect', async m => {
               }
            else if (b === "showdown") {
                 message.author.send('Okay, send your team over so I can validate it!').then(r => {
-                  r.channel.awaitMessages(m => m.author.id, { max : 1}).then(i => {
+                  r.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(i => {
                     const team = i.first().content
                     if (mon_array.some(o => team.includes(o))) return message.author.send("Sorry, this team has some things you can't request. Try again.")
                       validate(team, "gen7anythinggoes").then(resp => {
                         if (['Your team was rejected for the following reasons:'].some(as => resp.includes(as))) return message.author.send(resp)
                         message.author.send("Team is valid! What's your IGN? This is so the genners find you easier in-game.").then(uwu => {
-                          uwu.channel.awaitMessages(m => m.author.id, { max : 1}).then(w => {
+                          uwu.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(w => {
                           const ign = w.first().content
                           client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``)
                             })
@@ -85,7 +83,16 @@ poke.on('collect', async m => {
                   })
                 }
               else if (b === "pk7") {
-                
+                message.author.send('Okay, please send the pk7s.').then(r => {
+r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.some(e => e.includes('pk7')) > 0 && m.attachments.size > 0 && m.attachments.size < 3, {max:1}).then(p => {
+message.author.send('Okay! Whats your IGN? This is so genners can find you in-game quicker and easier.').then(o => {
+o.channel.awaitMessages(m => m.author.id === message.author.id, {max:1}).then(t => {
+const ign = t.first().content
+client.channels.get('456937038659321856').send(ign + ' has submitted pk7s!\n' + p.attachments.map(m => m.url).join(', ')) 
+})
+})
+})
+})
                 }
           })
         })
@@ -96,6 +103,7 @@ poke.on('collect', async m => {
           
       
       
+})
 
 }
 
