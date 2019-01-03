@@ -14,7 +14,9 @@ function pokes(t, str) {
 }
 exports.run = async (client, message, params) => {
  client.request.ensure(message.author.id, {
-  possible: 3
+  possible: 3,
+  used: null,
+  time: null
   })
                        
  if (!message.member.roles.has('480397935067004928')) return message.channel.send('Set your FC first!')
@@ -67,10 +69,16 @@ console.log(team)
 console.log(pokes(team, '\r\n\r\n'))
                  const total = pokes(team, '\r\n\r\n') < 3 ? pokes(team, '\r\n\r\n') : 3
                  client.request.math(message.author.id, '-', total, 'possible')
+                     client.request.setProp(message.author.id, 'used', new Date().getTime())
+                         client.request.setProp(message.author.id, 'time', 28800000)
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
                     t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
                       client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a the following team!\n${team}`)
+                     client.requests.set(message.id, {
+  status: 'ND',
+  requester: message.author.id
+  })
                       })
                     })
                   })
@@ -84,11 +92,17 @@ console.log(pokes(team, '\r\n\r\n'))
                       validate(team, "gen7anythinggoes").then(resp => {
                         if (['Your team was rejected for the following reasons:'].some(as => resp.includes(as))) return message.author.send(resp)
                         message.author.send("Team is valid! What's your IGN? This is so the genners find you easier in-game.").then(uwu => {
-                         const total = pokes(team, '\r\n\r\n') < 3 ? pokes(team, '\r\n\r\n') : 3
+                         const total = pokes(team, '\n\n') < 3 ? pokes(team, '\n\n') : 3
                          client.request.math(message.author.id, '-', total, 'possible')
+                         client.request.setProp(message.author.id, 'used', new Date().getTime())
+                         client.request.setProp(message.author.id, 'time', 28800000)
                           uwu.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(w => {
                           const ign = w.first().content
                           client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``)
+                           client.requests.set(message.id, {
+  status: 'ND',
+  requester: message.author.id
+  })
                             })
                           })
                         })
@@ -102,6 +116,12 @@ message.author.send('Okay! Whats your IGN? This is so genners can find you in-ga
 o.channel.awaitMessages(m => m.author.id === message.author.id, {max:1}).then(t => {
 const ign = t.first().content
 client.request.math(message.author.id, '-', .p.attachments.size, 'possible')
+     client.request.setProp(message.author.id, 'used', new Date().getTime())
+                         client.request.setProp(message.author.id, 'time', 28800000)
+ client.requests.set(message.id, {
+  status: 'ND',
+  requester: message.author.id
+  })
 client.channels.get('456937038659321856').send(ign + `(${message.author})` + ' has submitted pk7s!\n' + p.first().attachments.map(m => m.url).join(', ')) 
 })
 })
