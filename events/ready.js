@@ -12,7 +12,7 @@ module.exports = client => {
    client.user.setPresence({game: {name: `for your FCs`, type: 3}})
  
   
-  setInterval(() => {(
+  setInterval(() => {
  
   client.users.forEach(e => {
     client.request.ensure(e.id, {
