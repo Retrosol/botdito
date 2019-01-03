@@ -118,7 +118,7 @@ r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.
 message.author.send('Okay! Whats your IGN? This is so genners can find you in-game quicker and easier.').then(o => {
 o.channel.awaitMessages(m => m.author.id === message.author.id, {max:1}).then(t => {
 const ign = t.first().content
-client.request.math(message.author.id, '-', .p.attachments.size, 'possible')
+client.request.math(message.author.id, '-', p.attachments.size, 'possible')
      client.request.setProp(message.author.id, 'used', new Date().getTime())
                          client.request.setProp(message.author.id, 'time', 28800000)
  
