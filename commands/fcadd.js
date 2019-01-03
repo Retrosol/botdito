@@ -1,7 +1,7 @@
 exports.run = async (client, message, params) => {
        client.fcs.ensure(message.author.id, {
-             3ds: '',
-              switch: ''
+             '3ds': '',
+              'switch': ''
               })
        if (params[0].toLowerCase() === '3ds') {
        var friend = params.slice(0).join(' '),
