@@ -74,11 +74,12 @@ console.log(pokes(team, '\r\n\r\n'))
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
                     t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
-                      client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a the following team!\n${team}`)
-                     client.requests.set(message.id, {
-  status: 'ND',
-  requester: message.author.id
-  })
+                      client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``).then(w => {
+                       client.requests.set(w.id, {
+                        status: 'ND',
+                        requester: message.author.id
+                        })
+                       })
                       })
                     })
                   })
@@ -98,11 +99,13 @@ console.log(pokes(team, '\r\n\r\n'))
                          client.request.setProp(message.author.id, 'time', 28800000)
                           uwu.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(w => {
                           const ign = w.first().content
-                          client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``)
-                           client.requests.set(message.id, {
+                          client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``).then(w => {
+                           client.requests.set(w.id, {
   status: 'ND',
   requester: message.author.id
   })
+                           })
+                           
                             })
                           })
                         })
@@ -118,11 +121,13 @@ const ign = t.first().content
 client.request.math(message.author.id, '-', .p.attachments.size, 'possible')
      client.request.setProp(message.author.id, 'used', new Date().getTime())
                          client.request.setProp(message.author.id, 'time', 28800000)
- client.requests.set(message.id, {
+ 
+client.channels.get('456937038659321856').send(ign + `(${message.author})` + ' has submitted pk7s!\n' + p.first().attachments.map(m => m.url).join(', ')).then(w => {
+ client.requests.set(w.id, {
   status: 'ND',
   requester: message.author.id
   })
-client.channels.get('456937038659321856').send(ign + `(${message.author})` + ' has submitted pk7s!\n' + p.first().attachments.map(m => m.url).join(', ')) 
+ })
 })
 })
 })
