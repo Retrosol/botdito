@@ -2,7 +2,21 @@
   return (opt_lowerCaseTheRest ? this.toLowerCase() : this)
     .replace(/(^|[\s\xA0])[^\s\xA0]/g, function(s){ return s.toUpperCase(); });
 };
+function pokes(t, str) {
+ var count = 0;
+    for (i = 0; i < word.length; i++) {
+       if (word[i] == character) {
+           count++;
+       }
+  }
+ return count + 1
+
+}
 exports.run = async (client, message, params) => {
+ client.request.ensure(message.author.id, {
+  possible: 3
+  })
+                       
  if (!message.member.roles.has('480397935067004928')) return message.channel.send('Set your FC first!')
   
   const validate = require('pokemon-showdown-validator')
@@ -25,7 +39,7 @@ poke.on('collect', async m => {
     if (reason === "abort") return
     if (reason === "confirm") {
       message.author.send("Okay! Let me check if you can request Pokemon!").then(e => {
-       const possible = client.requests.getProp(message.author.id, "total")
+       const possible = client.request.getProp(message.author.id, "possible")
        if (possible === 0) return message.channel.send("You can't request any Pokemon! Come back later!")
         message.author.send("You can currently request " + possible + " Pokemon. Which way would you like to request?\n\nA) pokepast.es\nB) Showdown Import\nC) PK7\n\nJust say A, B, or C").then(r => {
         const importa = r.channel.createMessageCollector(m => m.author.id === message.author.id, {time: 36000})
@@ -49,15 +63,14 @@ poke.on('collect', async m => {
                   const { get } = require('snekfetch')
 const team = get(link).then(r => JSON.parse(r.body.toString()).paste)
 console.log(team)
-function pokes(t, str) {
-var regex = new RegExp(t, 'gi')
-return t.match(regex).length + 1
-}
+
 console.log(pokes(team, '\r\n\r\n'))
+                 const total = pokes(team, '\r\n\r\n') < 3 ? pokes(team, '\r\n\r\n') : 3
+                 client.request.math(message.author.id, '-', total, 'possible')
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
                     t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
-                      client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a Pokepaste!\n${link}`)
+                      client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted a the following team!\n${team}`)
                       })
                     })
                   })
@@ -71,6 +84,8 @@ console.log(pokes(team, '\r\n\r\n'))
                       validate(team, "gen7anythinggoes").then(resp => {
                         if (['Your team was rejected for the following reasons:'].some(as => resp.includes(as))) return message.author.send(resp)
                         message.author.send("Team is valid! What's your IGN? This is so the genners find you easier in-game.").then(uwu => {
+                         const total = pokes(team, '\r\n\r\n') < 3 ? pokes(team, '\r\n\r\n') : 3
+                         client.request.math(message.author.id, '-', total, 'possible')
                           uwu.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(w => {
                           const ign = w.first().content
                           client.channels.get("456937038659321856").send(`${ign} (${message.author}) has submitted the following team!\n\`\`\`${team}\`\`\``)
@@ -82,11 +97,12 @@ console.log(pokes(team, '\r\n\r\n'))
                 }
               else if (b === "pk7") {
                 message.author.send('Okay, please send the pk7s.').then(r => {
-r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.some(e => e.url.includes('pk7')) > 0 && m.attachments.size > 0 && m.attachments.size < 3, {max:1}).then(p => {
+r.channel.awaitMessages(m => m.author.id === message.author.id && m.attachments.some(e => e.url.includes('pk7')) > 0 && m.attachments.size > 0 && m.attachments.size < 4, {max:1}).then(p => {
 message.author.send('Okay! Whats your IGN? This is so genners can find you in-game quicker and easier.').then(o => {
 o.channel.awaitMessages(m => m.author.id === message.author.id, {max:1}).then(t => {
 const ign = t.first().content
-client.channels.get('456937038659321856').send(ign + ' has submitted pk7s!\n' + p.first().attachments.map(m => m.url).join(', ')) 
+client.request.math(message.author.id, '-', .p.attachments.size, 'possible')
+client.channels.get('456937038659321856').send(ign + `(${message.author})` + ' has submitted pk7s!\n' + p.first().attachments.map(m => m.url).join(', ')) 
 })
 })
 })
