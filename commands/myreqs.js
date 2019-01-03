@@ -10,7 +10,8 @@ const embed = new RichEmbed()
 .setTitle('Your Requests')
 .setColor('RANDOM')
 
-const reqs = client.requests.filter((e, k) => e.requester === message.author.id && !e.status === 'DONE' && !e.status === 'ILLEGAL')
+const reqs = client.requests.findAll('requester', message.author.id)
+console.log(reqs)
 embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join('\n'))
 message.channel.send(embed)
 }
