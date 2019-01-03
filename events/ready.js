@@ -16,9 +16,18 @@ module.exports = client => {
  
   client.users.forEach(e => {
     client.request.ensure(e.id, {
-      possible: 0,
+      possible: 3,
       used: null,
       time: null
     })
+    
+    if (new Date().getTime() - client.request.getProp(e.id, 'used') === client.request.getProp(e.id, 'time') || new Date().getTime() - client.request.getProp(e.id, 'used') > client.request.getProp(e.id, 'time')) {
+     client.request.set(e.id, {
+       possible: 3,
+       used: null,
+       time: null
+       })
+      e.send('You can request again!')
+    }
   }, 1000)
 }
