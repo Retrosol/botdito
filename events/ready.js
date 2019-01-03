@@ -21,7 +21,7 @@ module.exports = client => {
       time: null
     })
     
-    if (new Date().getTime() - client.request.getProp(e.id, 'used') === client.request.getProp(e.id, 'time') || new Date().getTime() - client.request.getProp(e.id, 'used') > client.request.getProp(e.id, 'time')) {
+    if ((new Date().getTime() - client.request.getProp(e.id, 'used') === client.request.getProp(e.id, 'time') || new Date().getTime() - client.request.getProp(e.id, 'used') > client.request.getProp(e.id, 'time')) && !client.request.getProp(e.id, 'used') === null) {
      client.request.set(e.id, {
        possible: 3,
        used: null,
