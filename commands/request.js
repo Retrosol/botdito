@@ -63,8 +63,9 @@ poke.on('collect', async m => {
                 t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(i => {
                   const link = i.first().content + '/json'
                   const { get } = require('snekfetch')
-const team = get(link).then(r => JSON.parse(r.body.toString()).paste)
-console.log(team)
+get(link).then(r => {
+ const team = JSON.parse(r.body.toString()).paste
+
 
 console.log(pokes(team, '\r\n\r\n'))
                  const total = pokes(team, '\r\n\r\n') < 3 ? pokes(team, '\r\n\r\n') : 3
@@ -84,6 +85,7 @@ console.log(pokes(team, '\r\n\r\n'))
                     })
                   })
               })
+               })
               }
            else if (b === "showdown") {
                 message.author.send('Okay, send your team over so I can validate it!').then(r => {
