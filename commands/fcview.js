@@ -1,8 +1,8 @@
 exports.run = async (client, message, params) => {
          const Discord = require('discord.js')
 
-       if (!params[0] || message.mentions.users.first()) {
-       const q = client.fcs.get(message.author.id)
+       if (!params[1] || message.mentions.users.first()) {
+       const q = client.fcs.getProp(message.author.id, params[0])
        if (!q) return message.channel.send('You need to set your FC!')
            const embed4 = new Discord.RichEmbed()
     .setColor("RANDOM")
@@ -23,7 +23,7 @@ message.channel.send(embed).then(q => {
   }).then(f => {
     const id = parseInt(f.first().content)
     const map = object.map(e => e)
-    const fc = client.fcs.get(map[id-1].id)
+    const fc = client.fcs.getProp(map[id-1].id, params[0])
     
     const embed5 = new Discord.RichEmbed()
     .setColor("RANDOM")
