@@ -1,4 +1,4 @@
-String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
+ String.prototype.toProperCase = function(opt_lowerCaseTheRest) {
   return (opt_lowerCaseTheRest ? this.toLowerCase() : this)
     .replace(/(^|[\s\xA0])[^\s\xA0]/g, function(s){ return s.toUpperCase(); });
 };
@@ -47,7 +47,13 @@ poke.on('collect', async m => {
                 t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(i => {
                   const link = i.first().content + '/json'
                   const { get } = require('snekfetch')
-get(link).then(r => console.log(r.body.paste))
+const team = get(link).then(r => JSON.parse(r.body.toString()).paste)
+console.log(team)
+function pokes(t, str) {
+var regex = new RegExp(t, 'gi')
+return t.match(regex).length + 1
+}
+console.log(pokes(team, '\r\n\r\n'))
                   message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.").then(o => {
                     t.channel.awaitMessages(m => m.author.id === message.author.id, { max : 1}).then(p => {
                       const ign = p.first().content
