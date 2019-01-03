@@ -1,4 +1,8 @@
 exports.run = async (client, message, params) => {
+client.fcs.ensure(message.author.id, {
+'3ds': '',
+'switch': ''
+})
          const Discord = require('discord.js')
 
        if (!params[1] || message.mentions.users.first()) {

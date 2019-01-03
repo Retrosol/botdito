@@ -4,8 +4,8 @@
 };
 function pokes(t, str) {
  var count = 0;
-    for (i = 0; i < word.length; i++) {
-       if (word[i] == character) {
+    for (i = 0; i < t.length; i++) {
+       if (t[i] == str) {
            count++;
        }
   }
