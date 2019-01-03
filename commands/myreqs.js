@@ -1,12 +1,12 @@
 exports.run = async (client, message, params) => {
-  const { MessageEmbed } = require('discord.js'),
+  const { RichEmbed } = require('discord.js'),
   statuses = {
   "ND": 'Not Done',
   'DBNT': 'Done but not traded',
   'TRADED': 'Done and traded',
   'ILLEGAL': 'Denied because request was illegal.'
   }
-const embed = new MessageEmbed()
+const embed = new RichEmbed()
 .setTitle('Your Requests')
 .setColor('RANDOM')
 
