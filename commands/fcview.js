@@ -50,5 +50,5 @@ exports.conf = {
 exports.help = {
   name: "fcview",
   description: "Allows you to see an FC",
-  usage: "+fcview (username)"
+  usage: "+fcview [switch or 3ds] (username)"
 }
