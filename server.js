@@ -15,6 +15,8 @@ client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.fcs = new Enmap({name: 'fcs'})
 client.requests = new Enmap({name: 'requests'})
+client.request = new Enmap({name: 'request'})
+
 fs.readdir("./commands/", (err, files) => {
   if (err) console.error(err);
   log(`Loading a total of ${files.length} commands.`);
