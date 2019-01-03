@@ -12,18 +12,13 @@ module.exports = client => {
    client.user.setPresence({game: {name: `for your FCs`, type: 3}})
  
   
-  setInterval(() => {
-   client.users.forEach(e => {
-   })
- }, 1000)
+  setInterval(() => {(
  
   client.users.forEach(e => {
-    client.requests.delete(e.id)
-    client.requests.ensure(e.id, {
-      amount: 0,
+    client.request.ensure(e.id, {
+      possible: 0,
       used: null,
-      time: null,
-      requests: {}
+      time: null
     })
-  })
+  }, 1000)
 }
