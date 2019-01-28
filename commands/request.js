@@ -12,9 +12,8 @@ function pokes(t, str) {
 }
 
 function recalcPossible(client, id) {
-    const possible = client.request.getProp(id, "possible")
     const lastUsed = client.request.getProp(id, "used")
-    if(possible === 0 && Date.now() > (lastUsed + 28800000))
+    if(Date.now() > (lastUsed + 28800000))
         client.request.setProp(id, "possible", 3)
 }
 
