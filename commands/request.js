@@ -84,7 +84,7 @@ exports.run = async (client, message, params) => {
                     client.request.setProp(message.author.id, "used", new Date().getTime())
                     client.request.setProp(message.author.id, "time", 28800000)
                     await message.author.send("What's your IGN? This is so the genners can find you in-game quickly and easily.")
-                    let p = t.channel.awaitMessages(m => m.author.id === message.author.id, {
+                    let p = await t.channel.awaitMessages(m => m.author.id === message.author.id, {
                         max: 1
                     })
                     const ign = p.first().content
