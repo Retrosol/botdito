@@ -17,12 +17,12 @@ exports.run = async (client, message, params) => {
     let requests = reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)
     embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index])
     message.channel.send(embed).then(msg => { 
-   msg.react('⬅️')
-        msg.react('⏹')
-        msg.react('➡️')
-        
+   msg.react('⏪').then(async e => {
+        await msg.react('⏹').then(async f => {
+        await msg.react('⏩')
+        })})
         const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅️' && user.id === message.author.id;
-      const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡️' && user.id === message.author.id; 
+      const forwardsFilter = (reaction, user) => reaction.emoji.name === '⏩' && user.id === message.author.id; 
       const stopFilter = (reaction, user) => reaction.emoji.name === '⏹' && user.id === message.author.id;
         
       const backwards = msg.createReactionCollector(backwardsFilter ); 
