@@ -13,8 +13,41 @@ exports.run = async (client, message, params) => {
 
     const reqs = client.requests.findAll("requester", message.author.id)
     console.log(reqs)
-    embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n"))
-    message.channel.send(embed)
+    let index = 0
+    embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index])
+    message.channel.send(embed).then(msg => { 
+   msg.react('⬅️')
+        msg.react('⏹')
+        msg.react('➡️')
+        
+        const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅️' && user.id === message.author.id;
+      const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡️' && user.id === message.author.id; 
+      const stopFilter = (reaction, user) => reaction.emoji.name === '⏹' && user.id === message.author.id;
+        
+      const backwards = msg.createReactionCollector(backwardsFilter ); 
+      const forwards = msg.createReactionCollector(forwardsFilter); 
+      const stop = msg.createReactionCollector(stopFilter)
+      
+      backwards.on('collect', r => { 
+        if (index === 0) return; 
+        index--;
+        embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index]); 
+        msg.edit(embed) 
+            r.users.remove(message.author.id)
+      }) 
+     
+      forwards.on('collect', r => { 
+        if (index === 999) return; 
+        index++; 
+        embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index]); 
+        msg.edit(embed) 
+                        r.users.remove(message.author.id)
+
+      })
+      stop.on('collect', r => {
+        msg.delete()
+      })
+})
 }
 
 exports.conf = {
