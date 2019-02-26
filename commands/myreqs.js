@@ -14,6 +14,7 @@ exports.run = async (client, message, params) => {
     const reqs = client.requests.findAll("requester", message.author.id)
     console.log(reqs)
     let index = 0
+    let requests = reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)
     embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index])
     message.channel.send(embed).then(msg => { 
    msg.react('⬅️')
@@ -37,7 +38,7 @@ exports.run = async (client, message, params) => {
       }) 
      
       forwards.on('collect', r => { 
-        if (index === 999) return; 
+        if (index === requests.length) return; 
         index++; 
         embed.setDescription(reqs.map((m, k) => `**${k}** - ${statuses[m.status]}`).join("\n").match(/((.*\n){1,10}.*\n?)/g)[index]); 
         msg.edit(embed) 
